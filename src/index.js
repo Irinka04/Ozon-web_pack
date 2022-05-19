@@ -1,5 +1,10 @@
-import cartLogic from './modules/cart.js';
-import second from './modules/second.js';
-
-cartLogic();
-second();
+import cart from "./modules/cart";
+import load from "./modules/load";
+import search from "./modules/search";
+import catalog from "./modules/catalog";
+import price from "./modules/price";
+cart();
+load();
+search();
+catalog();
+price();

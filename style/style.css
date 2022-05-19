@@ -573,7 +573,7 @@ nav .search-btn button::before {
 }
 
 .cart {
-  display: flex;
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -657,9 +657,5 @@ nav .search-btn button::before {
 .cart-confirm {
   display: block;
   margin-left: auto;
-}
-
-.hidden {
-  display: none;
 }
 /*# sourceMappingURL=style.css.map */

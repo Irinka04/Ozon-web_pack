@@ -1,9 +1,8 @@
-function getData(str) {
-    return fetch(
-        `https://ozonglo-47663-default-rtdb.firebaseio.com/goods.json`)
-    .then((response) => {
-        return response.json();
-    });
-}
+'use strict';
 
 export default getData;
+
+function getData() {
+    return fetch('https://ozon-f435b-default-rtdb.europe-west1.firebasedatabase.app/goods.json')
+        .then((res) => res.json());
+}

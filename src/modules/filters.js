@@ -1,35 +1,29 @@
-export function searchFilter (goods, value) {
-    return goods.filter((goodsItem) => {
-        return goodsItem.title.toLowerCase().includes(value.toLowerCase());
-    });
+"use strict";
+
+export function searchFilter(items, value) {
+    return  items.filter((item) => item.title.toLowerCase().includes(value.toLowerCase()));
 }
 
-export function categoryFilter (goods, value) {
-    return goods.filter((goodsItem) => {
-        return goodsItem.category === value;
-    });
+export function categoryFilter(items, value) {
+    return  items.filter((item) => item.category.includes(value));
 }
 
-export function minPriceFilter (goods, min, max) {
-    return goods.filter((goodsItem) => {
-        if (goodsItem.price > min && goodsItem.price < max) {
-            return goodsItem.price;
-        } else if (goodsItem.price > min && max == '') {
-            return goodsItem.price;
-        } else if (goodsItem.price < max && min == '') {
-            return goodsItem.price;
+export function priceFilter(items, values, sale) {
+    return items.filter((item) => {
+        if (values.maxPrice != '') {
+            if (sale) {
+                return +item.price >= +values.minPrice && +item.price  <= +values.maxPrice && item.sale == sale;
+            }
+            else {
+                console.log(2);
+                return +item.price >= +values.minPrice && +item.price  <= +values.maxPrice;
+            }
         }
-    });
-}
-
-export function maxPriceFilter (goods, min, max) {
-    return goods.filter((goodsItem) => {
-        if (goodsItem.price > min && goodsItem.price < max) {
-            return goodsItem.price;
-        } else if (goodsItem.price > min && max == '') {
-            return goodsItem.price;
-        } else if (goodsItem.price < max && min == '') {
-            return goodsItem.price;
+        else if (sale) {
+            return +item.price >= +values.minPrice && item.sale == sale;
+        }
+        else {
+            return +item.price >= +values.minPrice;
         }
     });
 }

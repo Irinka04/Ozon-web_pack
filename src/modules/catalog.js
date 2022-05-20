@@ -1,30 +1,42 @@
+"use strict";
+
 import getData from "./getData";
 import renderGoods from "./renderGoods";
-import { categoryFilter } from "./filters";
+import {categoryFilter} from "./filters";
 
-const catalog = () => {
-    const btnCatalog = document.querySelector('.catalog-button > button');
+export default catalog;
+
+function catalog() {
+    const catalog =  document.querySelector('.catalog-button');
+    const btnCatalog = catalog.querySelector('button');
     const catalogModal = document.querySelector('.catalog');
-    const catalogModalItems = document.querySelectorAll('.catalog li');
+
     let isOpen = false;
 
-    btnCatalog.addEventListener('click', () => {
-        isOpen = !isOpen;
-        if (isOpen) {
-            catalogModal.style.display = 'block';
-        } else {
-            catalogModal.style.display = '';
+    btnCatalog.addEventListener('click', () => toggleModal());
+
+    catalogModal.addEventListener('click', (Event) => {
+        if (Event.target.tagName == 'LI') {
+            getData().then((data) => {
+                renderGoods(categoryFilter(data, Event.target.textContent));
+            });
+            toggleModal();
         }
     });
 
-    catalogModalItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const text = item.textContent;
-            getData().then((data) => {
-                renderGoods(categoryFilter(data, text));
-            });
-        });
+    document.addEventListener('click', (Event) => {
+       if (!catalog.contains(Event.target) && isOpen) {
+           toggleModal();
+       }
     });
-};  
 
-export default catalog;
+    function toggleModal() {
+        if (isOpen) {
+            catalogModal.style.display = 'none';
+        }
+        else {
+            catalogModal.style.display = 'block';
+        }
+        isOpen = !isOpen;
+    }
+}
